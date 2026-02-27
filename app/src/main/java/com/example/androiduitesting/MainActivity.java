@@ -1,7 +1,10 @@
 package com.example.androiduitesting;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -64,5 +67,14 @@ public class MainActivity extends AppCompatActivity {
                 cityAdapter.clear();
             }
         });
+
+        cityList.setOnItemClickListener((parent,view,position,id)->{
+
+            String itemText=parent.getItemAtPosition(position).toString();
+            Intent intent=new Intent(this,ShowActivity.class);
+            intent.putExtra("Text",itemText);
+            startActivity(intent);
+        });
+
     }
 }
