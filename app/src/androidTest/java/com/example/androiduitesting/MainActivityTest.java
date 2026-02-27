@@ -71,6 +71,20 @@ public class MainActivityTest {
     }
 
     @Test
+    public void testConsistency(){
+        //Add a new city
+        onView(withId(R.id.button_add)).perform(click());
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("Edmonton"));
+        onView(withId(R.id.button_confirm)).perform(click());
+        //Click the added city
+        onData(is(instanceOf(String.class))).inAdapterView(withId(R.id.city_list
+        )).atPosition(0).perform(click());
+        //Check if we switched to new Activity and if the city name is consistent
+        onView(withId(R.id.new_view)).check(matches(isDisplayed()));
+        onView(withText("Edmonton")).check(matches(isDisplayed()));
+    }
+
+    @Test
     public void testBackButton(){
         //Add a new city, click on the added city and switch to new Activity
         onView(withId(R.id.button_add)).perform(click());
